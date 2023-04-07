@@ -1,0 +1,53 @@
+﻿@page
+@model Web.CounterQueueExample.Pages.CounterModel
+@{
+}
+
+<div class="text-center">
+    <h4 class="display-4 mb-3">Counter</h4>
+    <div class="d-flex flex-column gap-4 container">
+        <div class="form-floating">
+            <input type="number" id="count" readonly class="form-control" value=@Model.Count />
+            <label for="count">Counter value</label>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.Error))
+        {
+            <div class="toast align-items-center bg-danger text-white border-0 fade show" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        @Model.Error
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <div class="toast align-items-center bg-success text-white border-0 fade show" role="alert">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        @Model.Message
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            </div>
+        }
+
+        <form id="operation-form" method="POST">
+            <input type="hidden" id="operation-name-value" name="operationName" />
+            <div class="d-flex flex-column gap-4">
+                <p>Operation to perform</p>
+                <div class="btn-group">
+                    @foreach (var operation in Model.Operations)
+                    {
+                        <button type="button" class="btn btn-primary" data-operation=@operation>@operation</button>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/js/form.js"></script>
